@@ -1,14 +1,34 @@
-<script setup lang = 'ts'>
-import TodoItem from './components/todo/TodoItem.vue'
-import { ref } from 'vue'
-
-const tasks = ref([{ id: 1, title: 'первая задача', status: 'pending' }])
-</script>
-
 <template>
-  <TodoItem :task="tasks[0]"/>
+  <div class="toDo">
+    <h1 class="title">Список задачь</h1>
+    <TaskList />
+    
+  </div>
 </template>
 
-<style>
+<script setup>
+import TaskList from "./components/TaskList.vue";
+</script>
+
+
+<style lang="scss" scoped>
+.todolist {
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background: linear-gradient(135deg, #fcfeff, #eef6fb, #dbeaf5);
+  padding: 20px;
+}
+
+.title {
+  font-size: 2rem;
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 30px;
+  text-align: center;
+}
 
 </style>
