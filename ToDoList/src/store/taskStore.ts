@@ -1,7 +1,7 @@
 import { defineStore } from "pinia";
 import { ref } from "vue";
 
-interface Task {
+export interface Task {
   id: number;
   title: string;
   done: boolean;
@@ -10,43 +10,35 @@ interface Task {
 export const useTaskStore = defineStore("taskStore", () => {
   const tasks = ref<Task[]>([]);
 
-  const loadTasks = async () => {
+  async function loadTasks() {
     const saved = localStorage.getItem("tasks");
-    
     if (saved) {
       tasks.value = JSON.parse(saved) as Task[];
     } else {
       try {
-        const response = await fetch("/tasks.json"); // Путь относительно корня
-        const data = await response.json() as Task[];
+        const response = await fetch("/tasks.json");
+        if (!response.ok) throw new Error(`HTTP ${response.status}`);
+        const data = (await response.json()) as Task[];
         tasks.value = data;
         saveTasks();
-      } catch (e) {
-        console.error("Ошибка загрузки tasks.json:", e);
+      } catch (error) {
+        console.error("Ошибка при загрузке tasks.json:", error);
         tasks.value = [];
       }
     }
-  };
+  }
 
-  /**
- @param id
-   */
-  const toggleTask = (id: number) => {
+  function toggleTask(id: number) {
     const task = tasks.value.find(t => t.id === id);
     if (task) {
       task.done = !task.done;
       saveTasks();
     }
-  };
+  }
 
-  const saveTasks = () => {
+  function saveTasks() {
     localStorage.setItem("tasks", JSON.stringify(tasks.value));
-  };
+  }
 
-  return {
-    tasks,
-    loadTasks,
-    toggleTask,
-    saveTasks
-  };
+  return { tasks, loadTasks, toggleTask, saveTasks };
 });
