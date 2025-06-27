@@ -16,7 +16,7 @@ export const useTaskStore = defineStore("taskStore", () => {
       tasks.value = JSON.parse(saved) as Task[];
     } else {
       try {
-        const response = await fetch("/tasks.json");
+        const response = await fetch("./tasks.json");
         if (!response.ok) throw new Error(`HTTP ${response.status}`);
         const data = (await response.json()) as Task[];
         tasks.value = data;
@@ -38,6 +38,21 @@ export const useTaskStore = defineStore("taskStore", () => {
 
   function saveTasks() {
     localStorage.setItem("tasks", JSON.stringify(tasks.value));
+  }
+
+  function addTask(title: string) {
+    const newTask: Task = {
+      id: Date.now(),
+      title,
+      done: false
+    };
+    tasks.value.push(newTask);
+    saveTasks()
+  }
+
+  function deleteTask(id: number) {
+    tasks.value = tasks.value.filter(task => task.id !== id)
+    saveTasks()
   }
 
   return { tasks, loadTasks, toggleTask, saveTasks };
