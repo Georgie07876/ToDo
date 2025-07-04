@@ -6,7 +6,10 @@
   "scripts": {
     "dev": "vite",
     "build": "vue-tsc -b && vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "lint": "eslint . --ext .ts,.vue",
+    "deploy": "vite build && gh-pages -d dist"
+
   },
   "dependencies": {
     "pinia": "^3.0.3",
@@ -15,10 +18,11 @@
   "devDependencies": {
     "@vitejs/plugin-vue": "^6.0.0",
     "@vue/tsconfig": "^0.7.0",
+    "gh-pages": "^6.3.0",
     "sass": "^1.89.2",
-    "scss": "^0.2.4",
     "typescript": "~5.8.3",
     "vite": "^7.0.0",
+    "vite-plugin-pages": "^0.33.1",
     "vue-tsc": "^2.2.10"
   }
 }
