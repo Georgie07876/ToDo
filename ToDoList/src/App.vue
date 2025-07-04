@@ -16,11 +16,17 @@ import TaskList from "./components/TaskList.vue";
   width: 100%;
   min-height: 100vh;
   display: flex;
-  flex-direction: column;
+  flex-direction:column;
   justify-content: center;
   align-items: center;
-  background: linear-gradient(135deg, #458b3c, #87a236, #b18e1b);
+  background: radial-gradient(circle,rgba(63, 94, 251, 1) 0%, rgba(252, 70, 107, 1) 100%);
   padding: 20px;
+
+  h1 {
+    color:whitesmoke;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    
+  }
 }
 
 .title {
