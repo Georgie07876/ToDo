@@ -1,34 +1,37 @@
 <template>
   <div class="task-list">
-    <div
-      v-for="task in taskStore.tasks"
+    <AddTaskForm @task-added="onAdd" />
+    <TaskFilter :current="filter" @update="setFilter" />
+    <TaskItem
+      v-for="task in filteredTasks"
       :key="task.id"
-      class="task-item"
-    >
-      <label>
-        <input
-          type="checkbox"
-          :checked="task.done"
-          @change="handleToggle(task.id)"
-        />
-        <span :class="{ done: task.done }">{{ task.title }}</span>
-      </label>
-    </div>
+      :task="task"
+      @toggle="toggle"
+      @remove="remove"
+    />
   </div>
 </template>
 
 <script setup lang="ts">
-import { useTaskStore } from "../store/taskStore";
-import { onMounted } from "vue";
+import AddTaskForm from './AddTaskForm.vue'
+import TaskFilter from './TaskFilter.vue'
+import TaskItem from './TaskItem.vue'
+import { useTaskStore } from '../store/useTaskStore'
+import { useTaskFilter } from '../composables/useTaskFilter'
 
-const taskStore = useTaskStore();
+const store = useTaskStore()
+const { filter, filteredTasks, setFilter } = useTaskFilter()
 
-onMounted(() => {
-  taskStore.loadTasks();
-});
+store.loadTasks()
 
-function handleToggle(id: number) {
-  taskStore.toggleTask(id);
+function onAdd(title: string) {
+  store.addTask(title)
+}
+function toggle(id: number) {
+  store.toggleTask(id)
+}
+function remove(id: number) {
+  store.deleteTask(id)
 }
 </script>
 
@@ -39,6 +42,7 @@ function handleToggle(id: number) {
 }
 
 .task-item {
+  padding: 40px;
   margin-bottom: 10px;
   label {
     display: flex;

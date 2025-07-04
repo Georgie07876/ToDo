@@ -16,7 +16,7 @@ export const useTaskStore = defineStore("taskStore", () => {
       tasks.value = JSON.parse(saved) as Task[];
     } else {
       try {
-        const response = await fetch("./tasks.json");
+        const response = await fetch("/tasks.json");
         if (!response.ok) throw new Error(`HTTP ${response.status}`);
         const data = (await response.json()) as Task[];
         tasks.value = data;
@@ -55,5 +55,5 @@ export const useTaskStore = defineStore("taskStore", () => {
     saveTasks()
   }
 
-  return { tasks, loadTasks, toggleTask, saveTasks };
+  return { tasks, loadTasks, toggleTask, saveTasks, addTask, deleteTask };
 });
