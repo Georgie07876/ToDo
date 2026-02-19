@@ -6,7 +6,7 @@
   </div>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import TaskList from "./components/TaskList.vue";
 </script>
 

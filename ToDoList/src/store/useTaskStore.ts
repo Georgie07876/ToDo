@@ -1,5 +1,5 @@
 import { defineStore } from "pinia";
-import { ref } from "vue";
+import { ref, watch } from "vue";
 
 export interface Task {
   id: number;
@@ -20,7 +20,6 @@ export const useTaskStore = defineStore("taskStore", () => {
         if (!response.ok) throw new Error(`HTTP ${response.status}`);
         const data = (await response.json()) as Task[];
         tasks.value = data;
-        saveTasks();
       } catch (error) {
         console.error("Ошибка при загрузке tasks.json:", error);
         tasks.value = [];
@@ -29,16 +28,15 @@ export const useTaskStore = defineStore("taskStore", () => {
   }
 
   function toggleTask(id: number) {
-    const task = tasks.value.find(t => t.id === id);
+    const task = tasks.value.find((t: Task) => t.id === id);
     if (task) {
       task.done = !task.done;
-      saveTasks();
     }
   }
 
-  function saveTasks() {
-    localStorage.setItem("tasks", JSON.stringify(tasks.value));
-  }
+  watch(tasks, (newTasks) => {
+    localStorage.setItem("tasks", JSON.stringify(newTasks));    
+  }, {deep: true});
 
   function addTask(title: string) {
     const newTask: Task = {
@@ -47,13 +45,11 @@ export const useTaskStore = defineStore("taskStore", () => {
       done: false
     };
     tasks.value.push(newTask);
-    saveTasks()
   }
 
   function deleteTask(id: number) {
-    tasks.value = tasks.value.filter(task => task.id !== id)
-    saveTasks()
+    tasks.value = tasks.value.filter((task: Task) => task.id !== id)
   }
 
-  return { tasks, loadTasks, toggleTask, saveTasks, addTask, deleteTask };
+  return { tasks, loadTasks, toggleTask, addTask, deleteTask };
 });

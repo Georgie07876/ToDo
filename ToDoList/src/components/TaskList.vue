@@ -1,14 +1,26 @@
 <template>
   <div class="task-list">
-    <AddTaskForm @task-added="onAdd" />
+    <AddTaskForm />
     <TaskFilter :current="filter" @update="setFilter" />
-    <TaskItem
-      v-for="task in filteredTasks"
-      :key="task.id"
-      :task="task"
-      @toggle="toggle"
-      @remove="remove"
-    />
+    <TransitionGroup 
+      v-if="filteredTasks.length > 0" 
+      name="list" 
+      tag="ul"
+    >
+      <TaskItem
+        v-for="task in filteredTasks"
+        :key="task.id"
+        :task="task"
+        @toggle="store.toggleTask"
+        @remove="remove"
+      />
+    </TransitionGroup>
+
+    <Transition name="fade" mode="out-in">
+      <h2 v-if="filteredTasks.length === 0" class="alt-title" key="empty">
+        Список задач пуст, добавьте первую!
+      </h2>
+    </Transition>
   </div>
 </template>
 
@@ -24,12 +36,6 @@ const { filter, filteredTasks, setFilter } = useTaskFilter()
 
 store.loadTasks()
 
-function onAdd(title: string) {
-  store.addTask(title)
-}
-function toggle(id: number) {
-  store.toggleTask(id)
-}
 function remove(id: number) {
   store.deleteTask(id)
 }
@@ -37,12 +43,12 @@ function remove(id: number) {
 
 <style lang="scss" scoped>
 .task-list {
+  flex: 1;
   width: 100%;
   max-width: 400px;
 }
 
 .task-item {
-  padding: 40px;
   margin-bottom: 10px;
   label {
     display: flex;
@@ -56,5 +62,42 @@ function remove(id: number) {
     text-decoration: line-through;
     color: #999;
   }
+}
+
+.alt-title {
+  font-size: 1.5rem;
+  color: #dcdcdc;
+  text-align: center;
+  margin-top: 20px;
+  margin-top: 20%;
+}
+.list-enter-active,
+.list-leave-active {
+  transition: all 0.2s ease;
+}
+.list-enter-from,
+.list-leave-to {
+  opacity: 0;
+  transform: translateX(30px);
+}
+.list-leave-active {
+  position: absolute;
+  width: 100%;
+}
+.list-move {
+  transition: transform 0.2s ease;
+}
+
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 1s ease;
+}
+.fade-enter-from,
+.fade-leave-to {
+  opacity: 0;
+}
+
+ul {
+  padding: 0;
 }
 </style>

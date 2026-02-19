@@ -7,7 +7,6 @@
         v-model="taskTitle" 
         placeholder="Добавить задачу..." 
         required 
-        @keyup.enter="addTask"
       />
       <button type="submit" class="task-form__button">Добавить</button>
     </form>
@@ -34,21 +33,23 @@ function addTask() {
   width: 100%;
   max-width: 400px;
   margin: 0 auto;
-  padding: 10px;
 
   &__form {
     display: flex;
     gap: 10px;
+    width: 100%; 
   }
 
   &__input {
-    flex: 1;
+    flex: 1 1 auto; 
+    min-width: 0; 
     padding: 10px 15px;
     font-size: 1rem;
     border: 2px solid #ccc;
     border-radius: 8px;
     transition: border-color 0.3s, box-shadow 0.3s;
     outline: none;
+    box-sizing: border-box; 
 
     &:focus {
       border-color: #409eff;
@@ -61,14 +62,17 @@ function addTask() {
   }
 
   &__button {
-    padding: 10px 16px;
+    flex: 0 0 auto; 
+    padding: 10px 20px;
     background-color: #409eff;
     color: #fff;
     border: none;
     border-radius: 8px;
     font-weight: 600;
     cursor: pointer;
+    white-space: nowrap;
     transition: background-color 0.3s ease;
+    box-sizing: border-box; 
 
     &:hover {
       background-color: #337ecc;

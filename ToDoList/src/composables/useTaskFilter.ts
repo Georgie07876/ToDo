@@ -1,5 +1,6 @@
 import { computed, ref } from "vue";   
 import { useTaskStore } from "../store/useTaskStore";
+import type { Task } from "../store/useTaskStore";
 
 export type FilterType = "all" | "completed" | "active";
 export function useTaskFilter() {
@@ -9,9 +10,9 @@ export function useTaskFilter() {
   const filteredTasks = computed(() => {
     switch (filter.value) {
       case 'active':
-        return store.tasks.filter(t => !t.done)
+        return store.tasks.filter((t: Task) => !t.done)
       case 'completed':
-        return store.tasks.filter(t => t.done)
+        return store.tasks.filter((t: Task) => t.done)
       default:
         return store.tasks
     }
