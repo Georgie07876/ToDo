@@ -16,7 +16,7 @@
 </template>
 
 <script setup lang="ts">
-import type { Task } from '../store/useTaskStore'
+import type { Task } from '@/store/useTaskStore'
 
 const props = defineProps<{ task: Task }>()
 const emit = defineEmits<{
@@ -119,7 +119,7 @@ const emit = defineEmits<{
     transform: scale(0.9);
     margin-left: 12px;
     box-shadow: 0 2px 4px rgba(255, 77, 77, 0.3);
-    line-height: 1; 
+    line-height: 1;
     &:hover {
       background-color: #e60000;
       opacity: 1;

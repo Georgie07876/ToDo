@@ -12,7 +12,7 @@
 </template>
 
 <script setup lang="ts">
-import type { FilterType } from '../composables/useTaskFilter'
+import type { FilterType } from '@/composables/useTaskFilter'
 
 const props = defineProps<{ current: FilterType }>()
 const emit = defineEmits<(e: 'update', val: FilterType) => void>()

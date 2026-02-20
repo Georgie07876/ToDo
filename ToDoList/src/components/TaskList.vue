@@ -28,8 +28,8 @@
 import AddTaskForm from './AddTaskForm.vue'
 import TaskFilter from './TaskFilter.vue'
 import TaskItem from './TaskItem.vue'
-import { useTaskStore } from '../store/useTaskStore'
-import { useTaskFilter } from '../composables/useTaskFilter'
+import { useTaskStore } from '@/store/useTaskStore'
+import { useTaskFilter } from '@/composables/useTaskFilter'
 
 const store = useTaskStore()
 const { filter, filteredTasks, setFilter } = useTaskFilter()
