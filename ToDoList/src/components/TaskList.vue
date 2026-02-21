@@ -2,11 +2,7 @@
   <div class="task-list">
     <AddTaskForm />
     <TaskFilter :current="filter" @update="setFilter" />
-    <TransitionGroup 
-      v-if="filteredTasks.length > 0" 
-      name="list" 
-      tag="ul"
-    >
+    <TransitionGroup v-if="filteredTasks.length > 0" name="list" tag="ul">
       <TaskItem
         v-for="task in filteredTasks"
         :key="task.id"
@@ -17,7 +13,7 @@
     </TransitionGroup>
 
     <Transition name="fade" mode="out-in">
-      <h2 v-if="filteredTasks.length === 0" class="alt-title" key="empty">
+      <h2 v-if="filteredTasks.length === 0" key="empty" class="alt-title">
         Список задач пуст, добавьте первую!
       </h2>
     </Transition>

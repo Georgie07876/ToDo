@@ -1,25 +1,29 @@
 <template>
   <div class="task-item">
     <label class="task-item__label">
-      <input 
-        type="checkbox" 
-        :checked="task.done" 
-        @change="$emit('toggle', task.id)" 
+      <input
+        type="checkbox"
+        :checked="task.done"
         class="task-item__checkbox"
+        @change="$emit('toggle', task.id)"
       />
-      <span :class="['task-item__title', { 'task-item__title--done': task.done }]">
+      <span
+        :class="['task-item__title', { 'task-item__title--done': task.done }]"
+      >
         {{ task.title }}
       </span>
     </label>
-    <button @click="$emit('remove', task.id)" class="task-item__remove-btn">×</button>
+    <button class="task-item__remove-btn" @click="$emit('remove', task.id)">
+      ×
+    </button>
   </div>
 </template>
 
 <script setup lang="ts">
 import type { Task } from '@/store/useTaskStore'
 
-const props = defineProps<{ task: Task }>()
-const emit = defineEmits<{
+defineProps<{ task: Task }>()
+defineEmits<{
   (e: 'toggle', id: number): void
   (e: 'remove', id: number): void
 }>()

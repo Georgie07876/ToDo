@@ -14,8 +14,8 @@
 <script setup lang="ts">
 import type { FilterType } from '@/composables/useTaskFilter'
 
-const props = defineProps<{ current: FilterType }>()
-const emit = defineEmits<(e: 'update', val: FilterType) => void>()
+defineProps<{ current: FilterType }>()
+defineEmits<(e: 'update', val: FilterType) => void>()
 
 const options: FilterType[] = ['all', 'active', 'completed']
 const labels = { all: 'Все', active: 'Активные', completed: 'Выполненные' }
@@ -26,12 +26,12 @@ const labels = { all: 'Все', active: 'Активные', completed: 'Выпо
   padding-top: 40px;
   display: flex;
   width: 100%;
-  gap: 10px; 
+  gap: 10px;
   justify-content: space-between;
-  
+
   button {
-    flex: 1; 
-    padding: 12px 0; 
+    flex: 1;
+    padding: 12px 0;
     color: #fff;
     background: #409eff;
     border-radius: 8px;
@@ -39,13 +39,13 @@ const labels = { all: 'Все', active: 'Активные', completed: 'Выпо
     cursor: pointer;
     border: none;
     transition: background-color 0.3s ease;
-    white-space: nowrap; 
+    white-space: nowrap;
     &:hover {
       background-color: #337ecc;
     }
-    
+
     &.active {
-      background-color: #2a6eb3; 
+      background-color: #2a6eb3;
       box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1);
     }
   }

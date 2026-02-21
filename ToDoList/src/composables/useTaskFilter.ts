@@ -1,8 +1,8 @@
-import { computed, ref } from "vue";   
-import { useTaskStore } from "../store/useTaskStore";
-import type { Task } from "../store/useTaskStore";
+import { computed, ref } from 'vue'
+import { useTaskStore } from '../store/useTaskStore'
+import type { Task } from '../store/useTaskStore'
 
-export type FilterType = "all" | "completed" | "active";
+export type FilterType = 'all' | 'completed' | 'active'
 export function useTaskFilter() {
   const store = useTaskStore()
   const filter = ref<FilterType>('all')
@@ -25,6 +25,6 @@ export function useTaskFilter() {
   return {
     filteredTasks,
     filter,
-    setFilter,
-  };
+    setFilter
+  }
 }

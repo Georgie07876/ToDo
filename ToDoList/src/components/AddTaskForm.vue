@@ -1,12 +1,12 @@
 <template>
   <div class="task-form">
-    <form @submit.prevent="addTask" class="task-form__form">
-      <input 
+    <form class="task-form__form" @submit.prevent="addTask">
+      <input
+        v-model="taskTitle"
         class="task-form__input"
-        type="text" 
-        v-model="taskTitle" 
-        placeholder="Добавить задачу..." 
-        required 
+        type="text"
+        placeholder="Добавить задачу..."
+        required
       />
       <button type="submit" class="task-form__button">Добавить</button>
     </form>
@@ -14,16 +14,16 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue';
-import { useTaskStore } from '@/store/useTaskStore';
+import { ref } from 'vue'
+import { useTaskStore } from '@/store/useTaskStore'
 
-const taskStore = useTaskStore();
-const taskTitle = ref('');
+const taskStore = useTaskStore()
+const taskTitle = ref('')
 
 function addTask() {
   if (taskTitle.value.trim()) {
-    taskStore.addTask(taskTitle.value.trim());
-    taskTitle.value = '';
+    taskStore.addTask(taskTitle.value.trim())
+    taskTitle.value = ''
   }
 }
 </script>
@@ -37,19 +37,21 @@ function addTask() {
   &__form {
     display: flex;
     gap: 10px;
-    width: 100%; 
+    width: 100%;
   }
 
   &__input {
-    flex: 1 1 auto; 
-    min-width: 0; 
+    flex: 1 1 auto;
+    min-width: 0;
     padding: 10px 15px;
     font-size: 1rem;
     border: 2px solid #ccc;
     border-radius: 8px;
-    transition: border-color 0.3s, box-shadow 0.3s;
+    transition:
+      border-color 0.3s,
+      box-shadow 0.3s;
     outline: none;
-    box-sizing: border-box; 
+    box-sizing: border-box;
 
     &:focus {
       border-color: #409eff;
@@ -62,7 +64,7 @@ function addTask() {
   }
 
   &__button {
-    flex: 0 0 auto; 
+    flex: 0 0 auto;
     padding: 10px 20px;
     background-color: #409eff;
     color: #fff;
@@ -72,7 +74,7 @@ function addTask() {
     cursor: pointer;
     white-space: nowrap;
     transition: background-color 0.3s ease;
-    box-sizing: border-box; 
+    box-sizing: border-box;
 
     &:hover {
       background-color: #337ecc;
