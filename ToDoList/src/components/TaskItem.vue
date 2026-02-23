@@ -7,13 +7,14 @@
         class="task-item__checkbox"
         @change="$emit('toggle', task.id)"
       />
-      <span
-        :class="['task-item__title', { 'task-item__title--done': task.done }]"
-      >
+      <span :class="['task-item__title', { 'task-item__title--done': task.done }]">
         {{ task.title }}
       </span>
     </label>
-    <button class="task-item__remove-btn" @click="$emit('remove', task.id)">
+    <button
+      class="task-item__remove-btn"
+      @click="$emit('remove', task.id)"
+    >
       ×
     </button>
   </div>
